@@ -1,6 +1,12 @@
 "use client"
 
 import type React from "react"
+
+import Link from "next/link"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 
@@ -83,5 +89,94 @@ export default function ArticlesPage() {
       id: "placement-opportunities",
       title: "Placement Opportunities After B.Tech from IITs and NITs",
       description:
-        "An overview of career prospects, salary packages, and industries that recruit from top engineering colleges.",\
-      date: "March
+        "An overview of career prospects, salary packages, and industries that recruit from top engineering colleges.",
+      date: "March 15, 2025",
+      readTime: "9 min read",
+      category: "Career",
+      image: "/images/placement.jpg",
+    },
+    {
+      id: "physics-preparation",
+      title: "Mastering Physics for JEE: A Comprehensive Approach",
+      description:
+        "Expert strategies and resource recommendations to excel in the Physics section of JEE Mains and Advanced.",
+      date: "March 8, 2025",
+      readTime: "11 min read",
+      category: "Subject Guide",
+      image: "/images/physics.jpg",
+    },
+  ]
+
+  return (
+    <div className="min-h-screen bg-navy-900">
+      <section className="relative py-20 md:py-28 bg-navy-900">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/90 to-navy-900/80 z-10"></div>
+          <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5 z-0"></div>
+        </div>
+
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-3xl mx-auto">
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Articles & Resources</h1>
+              <p className="text-xl text-gray-300">
+                Insights, tips, and guidance to help you navigate your competitive exam preparation journey.
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <section className="py-16 bg-navy-800">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {articles.map((article) => (
+              <motion.div key={article.id} variants={fadeIn}>
+                <Card className="bg-navy-700 border-navy-600 overflow-hidden hover:shadow-lg hover:shadow-blue-900/20 hover:translate-y-[-5px] transition-all duration-300 h-full flex flex-col">
+                  <div className="h-48 relative overflow-hidden">
+                    <Image
+                      src={article.image || "/placeholder.svg"}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-900 to-transparent opacity-60"></div>
+                    <div className="absolute bottom-4 left-4 bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded">
+                      {article.category}
+                    </div>
+                  </div>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xl text-white">{article.title}</CardTitle>
+                    <CardDescription className="text-gray-400">
+                      {article.date} · {article.readTime}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-gray-300 flex-grow">
+                    <p>{article.description}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 p-0"
+                    >
+                      <Link href={`/articles/${article.id}`} className="flex items-center gap-2">
+                        Read More <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  )
+}
