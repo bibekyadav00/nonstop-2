@@ -70,7 +70,7 @@ export default function Home() {
       rating: 4,
     },
   ]
-
+// asd
   return (
     <main className="flex min-h-screen flex-col bg-gray-950">
       {/* Hero Section */}
@@ -397,6 +397,4 @@ export default function Home() {
             
 
 
-Let's update the About page to make the logo blend with the background:
 
-\
